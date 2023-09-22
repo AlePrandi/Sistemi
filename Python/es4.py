@@ -1,6 +1,7 @@
 def main():
     #usare if
     #chiedi 2 numeri e stampa una stringa con i num in oridine decrescente
+    #funzione main
     n1 = float(input ("Inserisci il primo numero: "))
     n2 = float(input ("Inserisci il secondo numero: "))
 
