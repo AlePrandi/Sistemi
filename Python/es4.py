@@ -4,7 +4,8 @@ def main():
     #funzione main
     n1 = float(input ("Inserisci il primo numero: "))
     n2 = float(input ("Inserisci il secondo numero: "))
-
+    a , b = 5 , 7 #assegnamento multiplo
+    b , a = a , b
     if n2 > n1:
         n1, n2 = n2, n1 #inverte i numeri
 
