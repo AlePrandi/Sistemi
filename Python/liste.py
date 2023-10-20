@@ -3,6 +3,7 @@ def print_list(l):
         print(element, end=" ")
     print("\n")
 
+
 def main():
     l = []
     num = 1
@@ -11,6 +12,7 @@ def main():
         if num > 0:
             l.append(num)
     print_list(l)
+
 
 if __name__ == "__main__":
     main()
