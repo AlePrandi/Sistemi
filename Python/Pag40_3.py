@@ -16,5 +16,5 @@ def main():
             print(f"il segno non è riconosciuto")
 
 
-if __name__ == "_main_":
+if __name__ == "__main__":
     main()
