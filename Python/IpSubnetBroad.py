@@ -1,15 +1,13 @@
 # calcola ip di rete e ip di boradcast.
 
-
 def completa8bit(strbin):
     b = strbin[2:]
     l = len(b)
     return "0" * (8 - l) + b
 
-
 ipAddress = input("inserisci indirizzo ip: ")
 # ipAddress_bin =
-sub_num = int(input("inserisci subnet mask in CDR senza /: "))
+sub_num = int(input("inserisci subnet mask in CIDR senza /: "))
 sub_bin = "1" * sub_num + "0" * (32 - sub_num)
 wild_bin = "0" * sub_num + "1" * (32 - sub_num)
 lista = sub_num * "1" + "0" * (32 - sub_num)
