@@ -19,15 +19,12 @@ def Ovest(tarta):
     
 def main():
     finestra = turtle.Screen()
-    tarta = turtle.Turtle()
-    dizionario = {"N": Nord, "E": Est, "S": Sud, "O": Ovest}
+    tarta = turtle.Turtle()  
+    dizionario = {"n": Nord, "e": Est, "s": Sud, "o": Ovest}
     while True:
         direz = input("Inserisci la direzione: ")
         if direz in dizionario:
-
-            dizionario[direz](tarta)
-        finestra.mainloop()
-        exit
-
+            dizionario[direz](tarta)   
+        
 if __name__ == "__main__":
     main()
