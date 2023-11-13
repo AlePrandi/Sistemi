@@ -12,7 +12,6 @@ def comandi(l):
          tarta.forward(100)
       else:
          print("Comando non valido \n")
-   finestra.mainloop()
 
 
 def main():
