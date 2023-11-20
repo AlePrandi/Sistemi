@@ -16,13 +16,13 @@ def leggiFile(file):
                 nC += 1
             if char == "G":
                 nG += 1
+    
+    print(stringa)     
                 
-    for i, c in enumerate(stringa):
-        for stringa[i: i + 12] in stringa[:-12]:
-            if stringa[i: i + 12] == sequenza:
-                print(i)        
-            
-    print(stringa)       
+    for i, c in enumerate(stringa[:-12]):
+        if stringa[i: i + 12] == sequenza:
+            print(f"Sequenza trovata in posizione: {i}")        
+                
     print(f"Adenina = {nA}")
     print(f"Citosina = {nC}")
     print(f"Timina = {nT}")
