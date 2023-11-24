@@ -20,9 +20,7 @@ group4 = int(lista[24:], 2)
 lista = [group1, group2, group3, group4]
 lista = [str(elemento) for elemento in lista]  # converte la stringa in CDR in decimale
 
-groups = ipAddress.split(# lista che contiene i gruppi; la split ritorna una lista di stringhe
-    "."
-)  
+groups = ipAddress.split(".")  
 
 groups = [int(group) for group in groups]  # convertire i gruppi da stringhe a interi
 groups_b = [bin(elemento) for elemento in groups]
