@@ -1,0 +1,28 @@
+- Dizionario: lista ma con utilizzo delle chiavi, si indicizza
+- Lista: Array che può contenere variabili di tipo diverso, gli elementi sono racchiusi nelle []
+- Range(X,Y): scorrimento da X a Y escluso
+- X,Y = Y,X : inverte i due valori, funziona anche con più numeri ma si hanno più ordini diversi
+- def funzione(...): definisce una funzione
+- len(...): definisce la lunghezza della lista, array, dizionario etc.
+- split('char'): separa una stringa in elementi diversi quando incontra il carattere passato
+- '{0:08b}'.format(...): trasforma l'elemento intero passato in un ottetto binario
+- 'char'.join(lista): unisce gli elementi della lista tramite il char passato
+- list comprehension: modo alternativo di scrivere le liste
+- .append(elemento): aggiunge un elemento in append alla fine della lista, array etc.
+- CDR: notazione per indicare il numero di 1 presenti in una subnet mask, si usa uno / davanti al numero
+- elif: unisce insieme un else all'if succesivo 
+- type(elemento): restuisce il tipo dell'elemento
+- stringa[1::2]: stampa un carattere ogni 2, se parto da 0 i pari, da 1 i dispari
+- enumerate: ritorna indice e elemento
+- readlines: legge le righe di un file
+- slicing: si usa per separare a piacimento le stringhe
+
+Turtle:
+- tutle: usata per disegnare tramite comandi
+- forward: va dritto 
+- left: gira a sinistra
+- right: gira a destra
+- Screen(): crea la finestra del Turtle
+- Mainloop(): fa girare il programma all'infinito, non usare quando ha comandi in input
+- begin_fill()/end_fill(): inizia e finisce il riempimento
+- penup()/pendown(): inizia e finisce di muoversi senza scrivere

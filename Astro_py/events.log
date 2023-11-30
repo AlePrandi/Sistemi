@@ -1,0 +1,40 @@
+[I 231130 11:46:43 Logging:15] Loop number 1 started
+[W 231130 11:46:43 Logging:17] Warning all'iterazione 1
+[E 231130 11:46:43 Logging:19] Errore all'iterazione 1
+[D 231130 11:46:43 Logging:21] Debug all'iterazione 1
+[I 231130 11:47:43 Logging:15] Loop number 2 started
+[W 231130 11:47:43 Logging:17] Warning all'iterazione 2
+[E 231130 11:47:43 Logging:19] Errore all'iterazione 2
+[D 231130 11:47:43 Logging:21] Debug all'iterazione 2
+[I 231130 11:59:25 Logging:15] Loop number 3 started
+[W 231130 11:59:25 Logging:17] Warning all'iterazione 3
+[E 231130 11:59:25 Logging:19] Errore all'iterazione 3
+[D 231130 11:59:25 Logging:21] Debug all'iterazione 3
+[I 231130 12:00:25 Logging:15] Loop number 4 started
+[W 231130 12:00:25 Logging:17] Warning all'iterazione 4
+[E 231130 12:00:25 Logging:19] Errore all'iterazione 4
+[D 231130 12:00:25 Logging:21] Debug all'iterazione 4
+[I 231130 12:01:25 Logging:15] Loop number 5 started
+[W 231130 12:01:25 Logging:17] Warning all'iterazione 5
+[E 231130 12:01:25 Logging:19] Errore all'iterazione 5
+[D 231130 12:01:25 Logging:21] Debug all'iterazione 5
+[I 231130 12:02:25 Logging:15] Loop number 6 started
+[W 231130 12:02:25 Logging:17] Warning all'iterazione 6
+[E 231130 12:02:25 Logging:19] Errore all'iterazione 6
+[D 231130 12:02:25 Logging:21] Debug all'iterazione 6
+[I 231130 12:03:25 Logging:15] Loop number 7 started
+[W 231130 12:03:25 Logging:17] Warning all'iterazione 7
+[E 231130 12:03:25 Logging:19] Errore all'iterazione 7
+[D 231130 12:03:25 Logging:21] Debug all'iterazione 7
+[I 231130 12:04:25 Logging:15] Loop number 8 started
+[W 231130 12:04:25 Logging:17] Warning all'iterazione 8
+[E 231130 12:04:25 Logging:19] Errore all'iterazione 8
+[D 231130 12:04:25 Logging:21] Debug all'iterazione 8
+[I 231130 12:05:25 Logging:15] Loop number 9 started
+[W 231130 12:05:25 Logging:17] Warning all'iterazione 9
+[E 231130 12:05:25 Logging:19] Errore all'iterazione 9
+[D 231130 12:05:25 Logging:21] Debug all'iterazione 9
+[I 231130 12:06:25 Logging:15] Loop number 10 started
+[W 231130 12:06:25 Logging:17] Warning all'iterazione 10
+[E 231130 12:06:25 Logging:19] Errore all'iterazione 10
+[D 231130 12:06:25 Logging:21] Debug all'iterazione 10
