@@ -1,6 +1,5 @@
 import ipaddress
 
-
 def main():
     ipv4 = input("inserisici un IPv4: ")
     subnet = input("inserisci una subnet in CDR(es. /24): ")
@@ -24,7 +23,6 @@ def main():
     host = list(iprete.hosts())
     print(f"Il primo Ip utilizzabile è {host[0]} {subnet}")
     print(f"L'ultimo Ip utilizzabile è {host[-1]} {subnet}")
-
 
 if __name__ == "__main__":
     main()

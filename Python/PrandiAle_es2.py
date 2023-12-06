@@ -1,8 +1,7 @@
 import turtle
-dim = 10
+DIM = 10
     
 def main():
-    
     finestra = turtle.Screen()
     tarta = turtle.Turtle()
     tarta.penup()
@@ -12,13 +11,13 @@ def main():
     for _ in range(0,4):
         for _ in range(0,4):
             for _ in range(0,4):
-                tarta.forward(dim)
+                tarta.forward(DIM)
                 tarta.left(90)
-            tarta.forward(dim)
+            tarta.forward(DIM)
         tarta.penup()
-        tarta.backward(dim * 4)
+        tarta.backward(DIM * 4)
         tarta.right(90)
-        tarta.forward(dim)
+        tarta.forward(DIM)
         tarta.left(90)
         tarta.pendown()
     turtle.done()
