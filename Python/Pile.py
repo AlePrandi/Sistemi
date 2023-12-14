@@ -20,7 +20,7 @@ def main():
     print (pila)
     x = pop(pila)
     """
-    stringa = "{1 + [2 + 3]) * 5}"
+    stringa = "{1 + [2 + 3] * 5}"
     dizionario = {"{": "}", "[": "]", "(": ")"}
     par_ap = ["{", "[", "("]
     par_ch = ["}", "]", ")"]
