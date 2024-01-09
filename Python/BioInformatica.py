@@ -20,11 +20,9 @@ def leggiFile(file):
 
     print(dizNucleo)
 
-
 def main():
     nomefile = "covid-19_gen1.txt"
     leggiFile(nomefile)
-
 
 if __name__ == "__main__":
     main()
