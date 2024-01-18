@@ -1,17 +1,22 @@
-#dato un numero n stampare una rombo di diagonale n a terminale
-#       *
-#      ***
-#     *****
-#      ***
-#       *
-def diagonal(n):
-    for i in range(n):
-        for j in range(n):
-            print("")
-
+'''
+ dato un numero n stampare una rombo di diagonale n a terminale
+       *
+      ***
+     *****
+      ***
+       *
+'''
 def main():
-    n = int(input("Inserisci un numero di lati: "))
-    diagonal(n)
-    
+    lung = int(input("inserire un numero: "))
+    while lung % 2 == 0 or lung < 0:
+        lung = int(input("inserire un numero: "))
+
+    for k in range(1, lung + 2, 2):
+        print(" " * ((lung - k) // 2) + "*" * k)
+
+    for k in range(lung - 2, 0, -2):
+        print(" " * ((lung - k) // 2) + "*" * k)
+
+
 if __name__ == "__main__":
     main()
