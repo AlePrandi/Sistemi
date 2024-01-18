@@ -21,7 +21,7 @@ def main():
     robot2 = robot("UTF02", 157, "umanoide")
     
     if robot1.isPericolo() == True:
-        print(f"Il robot {robot1.getNome()} è pericoloso")
+        print(f"Il robot {robot1.getNome()} è pericoloso") # si può anche fare direttamente robot1.nome
     else:
         print(f"Il robot {robot1.getNome()} non è pericoloso")
         

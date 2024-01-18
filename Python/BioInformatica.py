@@ -1,7 +1,6 @@
 def leggiFile(file):
-    file = open(file, "r")
-    righe = file.readlines()
-    file.close()
+    with open(file, "r") as file:
+        righe = file.readlines()
     dizNucleo = {"A": 0, "C": 0, "T": 0, "G": 0}
     genoma = ""
     sequenza = "ATGTTTGTTTTT"

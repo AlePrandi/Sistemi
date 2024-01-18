@@ -44,7 +44,7 @@ class Barcode:
 
 def main():
     while True:
-        stringa = input("Inserisci una stringa di 8 caratteri: ")
+        stringa = input("Inserisci una stringa con meno di 8 caratteri: ")
         if len(stringa) <= 8:
             break
 
