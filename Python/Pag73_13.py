@@ -1,10 +1,7 @@
 class robot:
     def __init__(self,nome,massa,tipo):
         self.nome = nome
-        if massa > 0:
-            self.massa = massa
-        else:
-            self.massa = 1
+        self.massa = massa if massa > 0 else 1
         self.tipo = tipo
     
     def getNome(self):
