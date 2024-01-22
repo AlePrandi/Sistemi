@@ -8,7 +8,6 @@ def Enqueue(coda, valore):
 def Dequeue(coda):
     coda.pop(0)
     
-
 def main():
     coda = [1 , 2 , 3 , 4 , 5]
     print(coda)
