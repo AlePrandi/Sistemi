@@ -8,10 +8,6 @@ from orbit import ISS
 from time import sleep
 from datetime import datetime, timedelta 
 from PIL import Image
-from pycoral.adapters import common
-from pycoral.adapters import classify
-from pycoral.utils.edgetpu import make_interpreter
-from pycoral.utils.dataset import read_label_file
 
 import csv
 import exif
@@ -191,15 +187,6 @@ def main():
     start_time = datetime.now()
     now_time = datetime.now()
 
-    #Machine Learning
-    model_file = base_folder/'models/model_edgetpu.tflite' 
-    label_night_file = base_folder/'models/labels.txt' 
-
-    interpreter = make_interpreter(f"{model_file}")
-    interpreter.allocate_tensors()
-
-    size = common.input_size(interpreter)
-
     #Stack with previus image
     save_image = []
 
@@ -240,15 +227,6 @@ def main():
             # During the first iteration a previus image doesn't exist, so the first image is saved (append in the stack) 
             if (counter == 1):
                 save_image.append(image_file)
-
-            #Machine Learning 
-            common.set_input(interpreter, image)
-            interpreter.invoke()
-            classes = classify.get_classes(interpreter, top_k=1)
-
-            labels = read_label_file(label_night_file)
-            
-            result_ML = labels.get(classes[0].id)
             
             # ISS SPEED
             if (counter != 1):
