@@ -9,9 +9,7 @@ def main():
     mat = []
     with open(file, 'r') as f:
         for riga in f.readlines():
-            rig = []
-            rig = [int(c) for c in riga[:-1]]
-            mat.append(rig)
+            mat.append([int(valore) for valore in riga.strip().split(",")])
     print(mat)
     
     lato_x = 100
@@ -19,24 +17,34 @@ def main():
     
     n_x = len(mat[0]) 
     n_y = len(mat)
+    casella = pygame.image.load()
     
     pygame.init()
-    screen = pygame.display.set_mode(n_x * lato_x, n_y * lato_y)
+    screen = pygame.display.set_mode((n_x * lato_x, n_y * lato_y))
     
     for riga in mat:
         for c in riga:
-            surf1 = pygame.Surface(lato_x, lato_y)
+            surf1 = pygame.Surface((lato_x, lato_y))
             if c == 1:
-                surf1.fill("white")
+                surf1.blit(casella, (0,0))
+                screen.blit(surf1, (lato_x - 100, lato_y - 100))
             else:
-                surf1.fill("black")
+                screen.blit()
             
             rect1 = surf1.get_rect()
-            rect1.topleft(lato_x - 100, lato_y - 100)
+            rect1.topleft = (lato_x - 100, lato_y - 100)
             screen.blit(surf1, rect1)
-            pygame.display.flip()
             lato_x += 100
         lato_y += 100
+        lato_x = 100
+    
+    pygame.display.flip() 
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                return
 
 if __name__ == '__main__':
     main()
