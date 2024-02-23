@@ -1,50 +1,71 @@
-'''
-simulare un robot che si sposta su un pavimento, bisogna definire una mappa con un file csv
-traduciamo in 0 se la piastrella è libera e 1 se è occupata, in un file csv
-'''
 import pygame
 
-def main():
-    file = "mappa.csv"
-    mat = []
-    with open(file, 'r') as f:
-        for riga in f.readlines():
-            mat.append([int(valore) for valore in riga.strip().split(",")])
-    print(mat)
-    
-    lato_x = 100
-    lato_y = 100
-    
-    n_x = len(mat[0]) 
-    n_y = len(mat)
-    casella = pygame.image.load()
-    
-    pygame.init()
-    screen = pygame.display.set_mode((n_x * lato_x, n_y * lato_y))
-    
-    for riga in mat:
-        for c in riga:
-            surf1 = pygame.Surface((lato_x, lato_y))
-            if c == 1:
-                surf1.blit(casella, (0,0))
-                screen.blit(surf1, (lato_x - 100, lato_y - 100))
+def draw_map(screen, mappa, lato_quad, pavimento, muro, font, mat):
+    k = 0
+    diz = {}
+    for y, riga in enumerate(mappa):
+        for x, cell in enumerate(riga):
+            if cell == 1:
+                screen.blit(muro, (x * lato_quad, y * lato_quad))
             else:
-                screen.blit()
-            
-            rect1 = surf1.get_rect()
-            rect1.topleft = (lato_x - 100, lato_y - 100)
-            screen.blit(surf1, rect1)
-            lato_x += 100
-        lato_y += 100
-        lato_x = 100
-    
-    pygame.display.flip() 
+                screen.blit(pavimento, (x * lato_quad, y * lato_quad))
+                testo = font.render(f"{k}", True, (255, 255, 255))
+                text_rect = testo.get_rect(
+                    center=(x * lato_quad + lato_quad - 15, y * lato_quad + 15)
+                )
+                screen.blit(testo, text_rect)
+                mat[x][y] = k
+                k += 1
 
-    while True:
+    for y, riga in enumerate(mappa):
+        for x, cell in enumerate(riga):
+            if cell == 0:
+                if y >= 0 and y <= len(mappa[0]) and x >= 0 and x <= len(mappa):
+                    if mat[x + 1][y] != -1:
+                        diz[mat[x][y]] = mat[x][y]
+                    if mat[x - 1][y] != -1:
+                        diz[mat[x][y]] = mat[x][y]
+                    if mat[x][y + 1] != -1:
+                        diz[mat[x][y]] = mat[x][y]
+                    if mat[x][y - 1] != -1:
+                        diz[mat[x][y]] = mat[x][y]
+
+
+def main():
+    pygame.init()
+    lato_quad = 100
+    mappa = []
+
+    pavimento = pygame.image.load("Pavimento.png")
+    pavimento = pygame.transform.scale(pavimento, (lato_quad, lato_quad))
+    muro = pygame.image.load("Muro.png")
+    muro = pygame.transform.scale(muro, (lato_quad, lato_quad))
+
+    with open("mappa.csv", "r") as f:
+        for riga in f.readlines():
+            riga = riga.split(",")
+            riga_int = [int(c) for c in riga]
+            mappa.append(riga_int)
+
+    num_colonne = len(mappa[0])
+    num_righe = len(mappa)
+    screen_width = num_colonne * lato_quad
+    screen_height = num_righe * lato_quad
+    matrice = [[-1 for _ in range(num_righe)] for _ in range(num_colonne)]
+
+    screen = pygame.display.set_mode((screen_width, screen_height))
+    font = pygame.font.SysFont(None, 30)
+
+    pygame.display.set_caption("Mappa")
+    running = True
+    while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                pygame.quit()
-                return
+                running = False
+        draw_map(screen, mappa, lato_quad, pavimento, muro, font, matrice)
+        pygame.display.flip()
+    pygame.quit()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()
