@@ -1,69 +1,99 @@
 import pygame
+from pygame.locals import *
 
-def draw_map(screen, mappa, lato_quad, pavimento, muro, font, mat):
-    k = 0
-    diz = {}
-    for y, riga in enumerate(mappa):
-        for x, cell in enumerate(riga):
-            if cell == 1:
-                screen.blit(muro, (x * lato_quad, y * lato_quad))
-            else:
-                screen.blit(pavimento, (x * lato_quad, y * lato_quad))
-                testo = font.render(f"{k}", True, (255, 255, 255))
-                text_rect = testo.get_rect(
-                    center=(x * lato_quad + lato_quad - 15, y * lato_quad + 15)
-                )
-                screen.blit(testo, text_rect)
-                mat[x][y] = k
-                k += 1
 
-    for y, riga in enumerate(mappa):
-        for x, cell in enumerate(riga):
-            if cell == 0:
-                if y >= 0 and y <= len(mappa[0]) and x >= 0 and x <= len(mappa):
-                    if mat[x + 1][y] != -1:
-                        diz[mat[x][y]] = mat[x][y]
-                    if mat[x - 1][y] != -1:
-                        diz[mat[x][y]] = mat[x][y]
-                    if mat[x][y + 1] != -1:
-                        diz[mat[x][y]] = mat[x][y]
-                    if mat[x][y - 1] != -1:
-                        diz[mat[x][y]] = mat[x][y]
+def calc_pav():
+    mat = []
+    with open("percorso.csv", "r") as f:
+        for riga in f.readlines():
+            riga = riga.split(",")
+            mat.append([int(c) for c in riga])
+    return mat
 
 
 def main():
+
+    lato_x = 100
+    lato_y = 100
+
+    pavimento = calc_pav()
+    n_y = len(pavimento)
+    n_x = len(pavimento[0])
+    matrice = [[-1 for _ in range(n_x)] for _ in range(n_y)]
+    k = 1
+
     pygame.init()
-    lato_quad = 100
-    mappa = []
+    screen = pygame.display.set_mode((n_x * lato_x, n_y * lato_y))
+    muro = pygame.image.load("./Muro.png")
+    strada = pygame.image.load("./Pavimento.png")
+    robot = pygame.image.load("./robot.png")
+    font = pygame.font.Font(None, 36)
 
-    pavimento = pygame.image.load("Pavimento.png")
-    pavimento = pygame.transform.scale(pavimento, (lato_quad, lato_quad))
-    muro = pygame.image.load("Muro.png")
-    muro = pygame.transform.scale(muro, (lato_quad, lato_quad))
+    for riga in pavimento:
+        for casella in riga:
+            surf1 = pygame.Surface((lato_x, lato_y))
+            text = font.render(f"{k}", True, (0, 0, 0))
+            if casella == 1:
+                surf1.blit(muro, (0, 0))
+                screen.blit(surf1, (lato_x - 100, lato_y - 100))
+            else:
+                surf1.blit(strada, (0, 0))
+                text_pos = text.get_rect(center=(lato_x - 50, lato_y - 50))
+                screen.blit(surf1, (lato_x - 100, lato_y - 100))
+                screen.blit(text, text_pos)
+                k += 1
 
-    with open("mappa.csv", "r") as f:
-        for riga in f.readlines():
-            riga = riga.split(",")
-            riga_int = [int(c) for c in riga]
-            mappa.append(riga_int)
+            pygame.display.flip()
+            lato_x += 100
 
-    num_colonne = len(mappa[0])
-    num_righe = len(mappa)
-    screen_width = num_colonne * lato_quad
-    screen_height = num_righe * lato_quad
-    matrice = [[-1 for _ in range(num_righe)] for _ in range(num_colonne)]
+        lato_x = 100
+        lato_y += 100
+        screen.blit(robot, (10, 10))
 
-    screen = pygame.display.set_mode((screen_width, screen_height))
-    font = pygame.font.SysFont(None, 30)
+    diz = {}
+    cont = 0
+    for indice_riga, riga in enumerate(pavimento):
+        for indice_colonne, casella in enumerate(riga):  # trova celle libere
+            if casella == 0:
+                cont = cont + 1
+                matrice[indice_riga][indice_colonne] = cont
+    print(matrice)
 
-    pygame.display.set_caption("Mappa")
-    running = True
-    while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-        draw_map(screen, mappa, lato_quad, pavimento, muro, font, matrice)
-        pygame.display.flip()
+    diz = {}
+    for indice_riga, riga in enumerate(matrice):
+        for indice_colonna, casella in enumerate(riga):
+            if casella != -1:
+                adiacenti = []
+                if (
+                    indice_colonna + 1 < len(riga)
+                    and matrice[indice_riga][indice_colonna + 1] != -1
+                ):  # destra
+                    adiacenti.append(matrice[indice_riga][indice_colonna + 1])
+                if (
+                    indice_colonna - 1 >= 0
+                    and matrice[indice_riga][indice_colonna - 1] != -1
+                ):  # sinistra
+                    adiacenti.append(matrice[indice_riga][indice_colonna - 1])
+                if (
+                    indice_riga - 1 >= 0
+                    and matrice[indice_riga - 1][indice_colonna] != -1
+                ):  # sopra
+                    adiacenti.append(matrice[indice_riga - 1][indice_colonna])
+                if (
+                    indice_riga + 1 < len(matrice)
+                    and matrice[indice_riga + 1][indice_colonna] != -1
+                ):  # sotto
+                    adiacenti.append(matrice[indice_riga + 1][indice_colonna])
+                diz[casella] = adiacenti
+
+    print("dizionario caselle percorribili")
+    print(diz)
+
+    done = False
+    while not done:
+        for ev in pygame.event.get():
+            if ev.type == QUIT:
+                done = True
     pygame.quit()
 
 
