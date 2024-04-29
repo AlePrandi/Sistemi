@@ -4,7 +4,7 @@ from pygame.locals import *
 
 def calc_pav():
     mat = []
-    with open("percorso.csv", "r") as f:
+    with open("mappa.csv", "r") as f:
         for riga in f.readlines():
             riga = riga.split(",")
             mat.append([int(c) for c in riga])
@@ -24,9 +24,9 @@ def main():
 
     pygame.init()
     screen = pygame.display.set_mode((n_x * lato_x, n_y * lato_y))
-    muro = pygame.image.load("./Muro.png")
-    strada = pygame.image.load("./Pavimento.png")
-    robot = pygame.image.load("./robot.png")
+    muro = pygame.transform.scale(pygame.image.load("./Muro.png"), (lato_x, lato_y))
+    strada = pygame.transform.scale(pygame.image.load("./Pavimento.png"), (lato_x, lato_y))
+    robot = pygame.transform.scale(pygame.image.load("./robot.png"), (lato_x, lato_y))
     font = pygame.font.Font(None, 36)
 
     for riga in pavimento:
@@ -38,17 +38,19 @@ def main():
                 screen.blit(surf1, (lato_x - 100, lato_y - 100))
             else:
                 surf1.blit(strada, (0, 0))
-                text_pos = text.get_rect(center=(lato_x - 50, lato_y - 50))
+                text_pos = text.get_rect(center=(lato_x - 15, lato_y - 80))
                 screen.blit(surf1, (lato_x - 100, lato_y - 100))
                 screen.blit(text, text_pos)
                 k += 1
+                
+            if casella == 2:
+                screen.blit(robot, (lato_x - 100, lato_y - 100))
 
             pygame.display.flip()
             lato_x += 100
 
         lato_x = 100
         lato_y += 100
-        screen.blit(robot, (10, 10))
 
     diz = {}
     cont = 0
