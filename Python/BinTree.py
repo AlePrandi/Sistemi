@@ -1,117 +1,123 @@
-class Node:
+import math
+
+
+class Node():
     def __init__(self, valore):
         self.valore = valore
         self.sinistro = None
         self.destro = None
 
     def inserisci(self, valore):
-        if self.valore != valore:
-            if self.valore is not None:
-                if valore < self.valore:
-                    if self.sinistro is None:
-                        self.sinistro = Node(valore)
-                    else:
-                        self.sinistro.inserisci(valore)
+        if self.valore is not None:
+            if self.valore > valore:
+                if self.sinistro == None:
+                    self.sinistro = Node(valore)
                 else:
-                    if self.destro is None:
-                        self.destro = Node(valore)
-                    else:
-                        self.destro.inserisci(valore)
-            else:
-                self.valore = valore
+                    self.sinistro.inserisci(valore)
+
+            elif self.valore < valore:
+                if self.destro == None:
+                    self.destro = Node(valore)
+                else:
+                    self.destro.inserisci(valore)
+
         else:
-            print("Non possono esserci valori uguali")
+            self.valore = valore
 
     def print_tree(self):
-        if self.valore is not None:
-            print(self.valore)
-            if self.sinistro is not None:
-                self.sinistro.print_tree()
-            if self.destro is not None:
-                self.destro.print_tree()
+        print(self.valore)
 
-    def search_val(self, val):
+        if self.sinistro != None:
+            self.sinistro.print_tree()
+
+        if self.destro != None:
+            self.destro.print_tree()
+
+    def cercaVal(self, valore):
         if self.valore is not None:
-            if val == self.valore:
+            if valore == self.valore:
                 return True
-            elif val < self.valore and self.sinistro is not None:
-                return self.sinistro.search_val(val)
-            elif val > self.valore and self.destro is not None:
-                return self.destro.search_val(val)
+            elif valore < self.valore:
+                if self.sinistro != None:
+                    return self.sinistro.cercaVal(valore)
+
+            elif valore > self.valore:
+                if self.destro != None:
+                    return self.destro.cercaVal(valore)
+
             else:
                 return False
         else:
             return False
 
-    def altezza(self):
-        if self.valore is None:
-            return 0
-        else:
-            if self.sinistro is not None:
-                altezza_sinistro = self.sinistro.altezza()
-            else:
-                altezza_sinistro = 0
-            if self.destro is not None:
-                altezza_destro = self.destro.altezza()
-            else:
-                altezza_destro = 0
-            return max(altezza_sinistro, altezza_destro) + 1
+    def contaNodi(self, contNodi):
+        contNodi += 1
+        if self.sinistro is not None:
+            contNodi = self.sinistro.contaNodi(contNodi)
+        if self.destro is not None:
+            contNodi = self.destro.contaNodi(contNodi)
+
+        return contNodi
+
+    def altezza(self, altDx, altSx):
+        if self.sinistro is not None:
+            altSx = self.sinistro.altezza(altDx, altSx + 1)
+        if self.destro is not None:
+            altDx = self.destro.altezza(altDx + 1, altSx)
+
+        return max(altDx, altSx)
 
     def isBilanciato(self):
-        if self.valore is None:
-            return True
-        else:
-            if self.sinistro is not None:
-                altezza_sinistro = self.sinistro.altezza()
-            else:
-                altezza_sinistro = 0
-            if self.destro is not None:
-                altezza_destro = self.destro.altezza()
-            else:
-                altezza_destro = 0
-            diff_altezze = abs(altezza_sinistro - altezza_destro)
-            
-            if diff_altezze <= 1:
-                if self.sinistro is not None:
-                    sinistro_bilanciato = self.sinistro.isBilanciato()
-                else:
-                    sinistro_bilanciato = True
-                if self.destro is not None:
-                    destro_bilanciato = self.destro.isBilanciato()
-                else:
-                    destro_bilanciato = True
-                if sinistro_bilanciato and destro_bilanciato:
-                    return True
-            return False
+        return self.altezza(0, 0) == int(math.log2(self.contaNodi(0)))
 
 
-def AlberoBil(lista, n):
-    if not lista:
-        return None
-
-    mid = len(lista) // 2
+def alberoBil(lista, n):
+    mid = len(lista)//2
+    n.inserisci(lista[mid])
     if mid != 0:
-        n.inserisci(lista[mid])
-        listaSx = lista[0:mid]
-        listaDx = lista[mid + 1 :]
+        listaSx = lista[0: mid]
+        listaDx = lista[mid+1:]
         if len(listaSx) > 0:
-            AlberoBil(listaSx, n)
+            alberoBil(listaSx, n)
         if len(listaDx) > 0:
-            AlberoBil(listaDx, n)
+            alberoBil(listaDx, n)
     else:
         return None
 
 
 def main():
-    n1 = Node(None)
-    lista = [1, 7, 5, 3, 9, 2, 6, 18, 21]
-    lista.sort()
-    AlberoBil(lista, n1)
-    n1.print_tree()
-    if n1.isBilanciato():
-        print("L'albero è bilanciato.")
+    n = Node(4)
+    n.inserisci(1)
+    n.inserisci(2)
+    n.inserisci(3)
+    n.inserisci(5)
+    n.inserisci(6)
+    n.inserisci(7)
+    n.print_tree()
+    """
+    if (n.cercaVal(7)):
+        print("Trovato")
     else:
-        print("L'albero non è bilanciato.")
+        print("Non trovato")
+
+    if (n.cercaVal(3)):
+        print("Trovato")
+    else:
+        print("Non trovato")
+
+    n1 = Node(None)
+    lista = [5, 6, 2, 20, 28, 16]
+    lista.sort()
+    alberoBil(lista, n1)
+    n1.print_tree()
+    """
+
+    print("Numero nodi: " + str(n.contaNodi(0)))
+    print("Altezza dell'albero: " + str(n.altezza(0, 0)))
+    if n.isBilanciato() == True:
+        print("è bilanciato")
+    else:
+        print("non è bilanciato")
 
 
 if __name__ == "__main__":

@@ -2,9 +2,9 @@ import threading
 import socket
 import time
 
-SERVER_ADDRESS = ("127.0.0.1", 9000)
+SERVER_ADDRESS = ("192.168.1.120", 9000)
 BUFFER_SIZE = 4096  # byte
-
+NICKNAME = "Prandi"
 
 class ThreadInvio(threading.Thread):
     def __init__(self, s):
@@ -15,8 +15,10 @@ class ThreadInvio(threading.Thread):
 
     def run(self):
         while self.running:
-            stringa = input("->")
-            self.s.sendto(stringa.encode(), SERVER_ADDRESS)
+            message = input("->")
+            dest = input("inserire il nome del destinatario: ")
+            packet = f"{message}|{NICKNAME}|{dest}"
+            self.s.sendto(packet.encode(), SERVER_ADDRESS)
             print("Inviato")
             self.mandato = True
 
@@ -31,10 +33,9 @@ class ThreadRicevi(threading.Thread):
         self.running = True
 
     def run(self):
-        print("Ricezione attiva")
         while self.running:
             data, server_address = self.s.recvfrom(BUFFER_SIZE)
-            print(f"Ricevuto {data.decode()} da {server_address}")
+            print(f"\nRicevuto da {server_address}: {data.decode()}")
             if data.decode() == "EXIT":
                 self.kill()
 
@@ -44,6 +45,7 @@ class ThreadRicevi(threading.Thread):
 
 def main():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.bind(("192.168.1.132", 8000))
     invio = ThreadInvio(s)
     ricevi = ThreadRicevi(s)
 
@@ -51,8 +53,7 @@ def main():
     while True:
         if invio.mandato:
             ricevi.start()
-            invio.mandato = False
-            time.sleep(0.02)
+            time.sleep(5)
 
     invio.join()
     ricevi.join()

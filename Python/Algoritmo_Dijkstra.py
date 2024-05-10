@@ -28,7 +28,7 @@ def dijkstra(sorgente, matrice):
     nonVis = set([i for i in range(0, n_nodi)])
     label = {i: sys.maxsize for i in range(0, n_nodi)}
     label[sorgente] = 0
-    predecessore = []
+    predecessore = [] 
     while len(nonVis) > 0:
         nodo_corrente = scelta_nodo(nonVis, label)
         nonVis.remove(nodo_corrente)
@@ -36,13 +36,13 @@ def dijkstra(sorgente, matrice):
             if peso > 0:
                 nuovaLabel = label[nodo_corrente] + peso
                 if nuovaLabel < label[nodoVicino]:
-                    predecessore[nodoVicino] = nodo_corrente
+                    predecessore.append(nodo_corrente)
                     label[nodoVicino] = nuovaLabel
     return label,predecessore
  
  
 def main():
-    pavimento = calc_pav()
+    '''pavimento = calc_pav()
     n_y = len(pavimento)
     n_x = len(pavimento[0])
     matrice = [[-1 for _ in range(n_x)] for _ in range(n_y)]
@@ -68,13 +68,13 @@ def main():
                 if (indice_riga + 1 < len(matrice) and matrice[indice_riga + 1][indice_colonna] != -1):  # sotto
                     adiacenti.append((indice_riga + 1, indice_colonna))
                 diz[(indice_riga, indice_colonna)] = adiacenti
-
+'''
     part = 0
     mat = [[0, 4, 0], [4, 0, 3], [0, 3, 0]]
     ris, prede = dijkstra(part, mat)
     print("Distanze minime da", part, ":")
     print(ris)
-    print("Percorso: \n")
+    print("Percorso: ")
     print(prede)
 
 
