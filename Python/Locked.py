@@ -1,45 +1,49 @@
 import threading
 import time
+
+#crea un oggetto di tipo Lock, è un blocco
 blocco = threading.Lock()
-saldo = 1000
 
 class Prelievo(threading.Thread):
-    def __init__(self, percentuale):
+    def __init__(self, file, percentuale):
         super().__init__()
+        self.file = file
         self.percentuale = percentuale
-        
+        self.running = True
+
     def run(self):
-        global saldo
-        while True:
-            cifra = self.percentuale * (saldo / 100)
-            #Lock fa si che il primo thread che acquisisce la Lock sia l'unico a poter afire sulla parte
-            #tra l'acquire e il release
-            #mutex = mutuamente esclusivo 
-            blocco.acquire() #acquisisce la lock
-            saldo = saldo - cifra # esegue la zona critica 
-            blocco.release() #rilascia la lock
-            print(f"il saldo aggiornato è {saldo}")
-            time.sleep(3)
+        while self.running:
+            with open(self.file, "r") as file:
+                saldoStr = file.readline()
+            saldo = float(saldoStr)
+            if saldo > 0:
+                cifra = self.percentuale * saldo / 100
+                time.sleep(1) 
+                saldo -= cifra
+                blocco.acquire()
+                with open(self.file, "w") as file:
+                    file.write(str(saldo))
+                blocco.release() 
+                print(f"Il saldo aggiornato è: {saldo}")
+                time.sleep(1)
+            else:
+                print("saldo in negativo")
+                self.running = False
             
+    def kill(self):
+        self.running = False
+
 def main():
-    luca = Prelievo(5)
-    mario = Prelievo(-2)
-    luca.start()
-    mario.start()
-    
-    #la sezione citica di un thread è la porzione di codice 
-    #in cui il thread opera in scrittura sulla risorsa condivisa
-    
-    #avviene una race condition 
-    
-    #CONSEGNA !!
-    #modificare in modo che il saldo sia un valore di un file, 
-    #quindi ogni volta apro,modifico e chiudo il file
-    #implementare meccanismo che impedisca al saldo di diventare negativo 
-    #creare una lista di 10 thread ed eseguirli
-    #implementare metodo kill 
-    #il main thread lascia eseguire i thread per un minuto e poi fa la join
-    
-    
-if __name__ == '__main__':
+    file = "saldo.txt"
+    listaPrelievi = [5, -6]
+    lista_thread = [Prelievo(file, n) for n in listaPrelievi]
+    for t in lista_thread:
+        t.start()
+    time.sleep(60)
+    for t in lista_thread:
+        t.kill()
+    for t in lista_thread:
+        t.join()
+
+if __name__ == "__main__":
     main()

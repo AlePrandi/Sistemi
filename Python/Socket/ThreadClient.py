@@ -2,7 +2,7 @@ import threading
 import socket
 import time
 
-SERVER_ADDRESS = ("192.168.1.120", 9000)
+SERVER_ADDRESS = ("192.168.1.129", 8000)
 BUFFER_SIZE = 4096  # byte
 NICKNAME = "Prandi"
 
@@ -45,7 +45,7 @@ class ThreadRicevi(threading.Thread):
 
 def main():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    s.bind(("192.168.1.132", 8000))
+    s.bind(("0.0.0.0", 8000))
     invio = ThreadInvio(s)
     ricevi = ThreadRicevi(s)
 
