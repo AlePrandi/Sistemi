@@ -1,0 +1,45 @@
+Comandi utili:
+	- show running-config 
+	- show access-lists
+	- show ip nat translations
+
+1) ENCAPSULATION						   
+
+router(config)#interface FastEthernet0/0.[1]			
+ 		encapsulation dot1Q [2]				
+ 		ip address [3]  [4]				
+
+[1] sottoporta del FastEthernet
+[2] Vlan da associare alla porta
+[3] Ip address del Gateway della rete/sottorete
+[4] Subnet della rete/sottorete
+
+
+2) ACL SEMPLICE
+
+router(config)#	access-list [3] permit [1]  [2]   <- permette quella rete
+router(config)#	access-list [3] deny [1]  [2]	<- nega quella rete
+
+[1] Indirizzo della rete
+[2] Wild card della subnet
+[3] Numero ACL <- semplice da 0 a 100, estesa da 100 in poi
+
+3) ACL ESTESA
+
+router(config)#	access-list [3] deny [1] [2] [4] [2]  <- 	in questo modo specifica la sorgente e la 								destinazione e va messo ACCESS-GROUP IN e 				questo come PRIMA ISTRUZIONE
+
+[1] Indirizzo della rete PARTENZA
+[2] Wild card della subnet
+[4] Indirizzo della rete DESTINAZIONE
+[3] Numero ACL <- semplice da 0 a 100, estesa da 100 a 199
+
+
+4) ASSOCIARE ACL ALLA VLAN
+router(config)#interface FastEthernet0/0.[1]
+		ip access-group [7] [8]
+
+[1] sottoporta del FastEthernet
+[7] nome della ACL da associare
+[8] in / out:
+	- in 	<-controllo pacchetti in ingresso 
+	- out 	<-controllo pacchetti in uscita

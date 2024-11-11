@@ -1,5 +1,5 @@
 '''
-CIFRARIO DI VERNAM
+CIFRARIO DI VERNUM
 
 Usiamo l'alfabeto italiano <- 21 lettere 
 
@@ -33,7 +33,7 @@ class Testo():
             for lettera_testo, lettera_chiave in zip(self.stringa, self.chiave):
                 numero = (lett2num[lettera_testo] + lett2num[lettera_chiave]) % len(self.lettere)
                 self.testo_criptato = self.testo_criptato + num2lett[numero]
-            print(f"il testo '{self.testo_chiaro}' diventa '{self.testo_criptato}'.")
+            print(f"il testo '{self.stringa}' diventa '{self.testo_criptato}'.")
             self.cifrato = True
         else:
             print("la stringa è già cifrata")

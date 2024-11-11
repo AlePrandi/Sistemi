@@ -1,0 +1,9 @@
+Router(config)#interface FastEthernet0/0
+Router(config-if)#ip nat inside
+Router(config)#end
+
+Router(config)#interface Serial2/0
+Router(config-if)#ip nat outside
+Router(config-if)#end
+
+Router(config)#ip nat inside source static [Ip privato] [Ip pubblico]
