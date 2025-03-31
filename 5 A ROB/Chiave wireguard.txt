@@ -1,0 +1,8 @@
+Chiave wireguard
+KuTQWBIEgobPBDjcNXn7y6K/jxdxn2I7mEwuurlfpT4=
+
+chiave client
+LWEifOzl/5i+RkXeicNgGtnE1463IvgM790rHv//7ys=
+
+pre-shared
+GZYRQhQ2QMTvMIOdAGKUgmkvmxLB5vOxQb3vKeOzctk=
